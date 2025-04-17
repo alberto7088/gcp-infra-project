@@ -1,6 +1,7 @@
 name: Dev Environment — Terraform
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ main ]
   push:
@@ -10,8 +11,6 @@ jobs:
   terraform_plan:
     name: Plan (Dev)
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-
     uses: alberto7088/workflows/.github/workflows/terraform-deployment.yaml@main
     with:
       environment:        dev
@@ -24,8 +23,6 @@ jobs:
   terraform_apply:
     name: Apply (Dev)
     if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-
     uses: alberto7088/workflows/.github/workflows/terraform-deployment.yaml@main
     with:
       environment:        dev
