@@ -19,3 +19,8 @@ variable "env" {
   type        = string
   default     = "dev"
 }
+
+variable "state_sa_email" {
+  description = "Service account email"
+  type        = string
+}
