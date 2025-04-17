@@ -56,8 +56,3 @@ variable "environment_variables" {
   type        = map(string)
   default     = {}
 }
-
-variable "state_sa_email" {
-  description = "Service account email"
-  type        = string
-}
