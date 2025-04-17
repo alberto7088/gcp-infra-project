@@ -12,7 +12,7 @@ provider "google" {
 }
 
 module "word_counter" {
-  source              = "./modules/cloud_function"
+  source              = "./modules/cloud-unction"
   gcp_project         = var.gcp_project
   region              = var.region
   bucket_name         = var.tf_state_bucket
