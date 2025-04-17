@@ -11,11 +11,24 @@ provider "google" {
   region  = var.region
 }
 
+module "state_bucket" {
+  source         = "./modules/bucket"
+  gcp_project    = var.gcp_project
+  region         = var.region
+  bucket_name    = var.tf_state_bucket
+  force_destroy  = true
+  state_sa_email = var.state_sa_email
+}
+
+locals {
+  code_bucket = module.state_bucket.bucket_name
+}
+
 module "word_counter" {
-  source              = "./modules/cloud_function"
+  source              = "./modules/cloud-function"
   gcp_project         = var.gcp_project
   region              = var.region
-  bucket_name         = var.tf_state_bucket
+  bucket_name         = local.code_bucket
   function_name       = "word_counter"
   runtime             = "python39"
   entry_point         = "get_word_count"
@@ -23,6 +36,9 @@ module "word_counter" {
   available_memory_mb = 1024
   timeout             = 300
   source_dir          = "${path.module}/../../services/src/function-word-counter"
+  min_instances       = 0
+  max_instances       = 10
+
   environment_variables = {
     ENVIRONMENT = var.env
   }

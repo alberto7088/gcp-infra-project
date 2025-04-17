@@ -56,3 +56,15 @@ variable "environment_variables" {
   type        = map(string)
   default     = {}
 }
+
+variable "min_instances" {
+  description = "Minimum number of function instances"
+  type        = number
+  default     = 0
+}
+
+variable "max_instances" {
+  description = "Maximum number of function instances"
+  type        = number
+  default     = 100
+}

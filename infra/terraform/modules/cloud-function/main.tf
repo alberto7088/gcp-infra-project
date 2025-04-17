@@ -14,31 +14,40 @@ resource "google_storage_bucket_object" "function_archive" {
   source = data.archive_file.function_zip.output_path
 }
 
-resource "google_cloudfunctions_function" "this" {
+resource "google_cloudfunctions2_function" "this" {
   name                = var.function_name
   project             = var.gcp_project
-  region              = var.region
-  runtime             = var.runtime
-  entry_point         = var.entry_point
-  trigger_http        = var.trigger_http
-  available_memory_mb = var.available_memory_mb
-  timeout             = var.timeout
+  location            = var.region
 
-  source_archive_bucket = var.bucket_name
-  source_archive_object = google_storage_bucket_object.function_archive.name
+  build_config{
+    runtime             = var.runtime
+    entry_point         = var.entry_point
 
-  environment_variables = merge(
-    var.environment_variables,
-    {
-      FUNCTION_ZIP_HASH = local.function_zip_hash
+    source{
+      storage_source {
+        bucket = var.bucket_name
+        object = google_storage_bucket_object.function_archive.name
+      }
     }
-  )
+  }
+
+  service_config {
+    min_instance_count = var.min_instances
+    max_instance_count = var.max_instances
+    available_memory   = "${var.available_memory_mb}Mi"
+    timeout_seconds    = var.timeout
+
+    environment_variables = merge(
+      var.environment_variables,
+      { FUNCTION_ZIP_HASH = local.function_zip_hash }
+    )
+  }
 }
 
-resource "google_cloudfunctions_function_iam_member" "invoker" {
-  project        = var.gcp_project
-  region         = var.region
-  cloud_function = google_cloudfunctions_function.this.name
-  role           = "roles/cloudfunctions.invoker"
-  member         = "allUsers"
+resource "google_cloudfunctions2_function_iam_member" "invoker" {
+  project   = var.gcp_project
+  location  = var.region
+  cloud_function  = google_cloudfunctions2_function.this.name
+  role      = "roles/roles/run.invoker"
+  member    = "allUsers"
 }
