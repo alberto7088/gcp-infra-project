@@ -16,9 +16,10 @@ jobs:
       environment:        dev
       terraform-action:   plan
       terraform-directory: infra/terraform
-      gcp-credentials: ${{ secrets.GCP_CREDENTIALS_DEV }}
-      tf-state-bucket: ${{ secrets.TF_STATE_BUCKET_DEV }}
-      gcp-project:     ${{ secrets.GCP_PROJECT_DEV }}
+    secrets:
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_DEV }}
+      TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET_DEV }}
+      GCP_PROJECT:     ${{ secrets.GCP_PROJECT_DEV }}
 
   terraform_apply:
     name: Apply (Dev)
@@ -28,6 +29,7 @@ jobs:
       environment:        dev
       terraform-action:   apply
       terraform-directory: infra/terraform
-      gcp-credentials: ${{ secrets.GCP_CREDENTIALS_DEV }}
-      tf-state-bucket: ${{ secrets.TF_STATE_BUCKET_DEV }}
-      gcp-project: ${{ secrets.GCP_PROJECT_DEV }}
+    secrets:
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_DEV }}
+      TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET_DEV }}
+      GCP_PROJECT:     ${{ secrets.GCP_PROJECT_DEV }}
