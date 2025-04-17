@@ -12,7 +12,7 @@ provider "google" {
 }
 
 module "state_bucket" {
-  source         = "../modules/bucket"
+  source         = "./modules/bucket"
   gcp_project    = var.gcp_project
   region         = var.region
   bucket_name    = var.tf_state_bucket
