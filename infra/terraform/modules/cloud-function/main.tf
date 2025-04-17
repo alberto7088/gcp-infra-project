@@ -1,16 +1,3 @@
-module "state_bucket" {
-  source         = "../modules/bucket"
-  gcp_project    = var.gcp_project
-  region         = var.region
-  bucket_name    = var.tf_state_bucket
-  force_destroy  = true
-  state_sa_email = var.state_sa_email
-}
-
-locals {
-  code_bucket = module.state_bucket.bucket_name
-}
-
 data "archive_file" "function_zip" {
   type        = "zip"
   source_dir  = var.source_dir
@@ -23,7 +10,7 @@ locals {
 
 resource "google_storage_bucket_object" "function_archive" {
   name   = "${var.function_name}/function.zip"
-  bucket = local.code_bucket
+  bucket = var.bucket_name
   source = data.archive_file.function_zip.output_path
 }
 
@@ -37,7 +24,7 @@ resource "google_cloudfunctions_function" "this" {
   available_memory_mb = var.available_memory_mb
   timeout             = var.timeout
 
-  source_archive_bucket = local.code_bucket
+  source_archive_bucket = var.bucket_name
   source_archive_object = google_storage_bucket_object.function_archive.name
 
   environment_variables = merge(
