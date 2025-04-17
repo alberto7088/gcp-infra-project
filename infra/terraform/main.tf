@@ -36,6 +36,9 @@ module "word_counter" {
   available_memory_mb = 1024
   timeout             = 300
   source_dir          = "${path.module}/../../services/src/function-word-counter"
+  min_instances       = 0
+  max_instances       = 10
+
   environment_variables = {
     ENVIRONMENT = var.env
   }
