@@ -8,6 +8,8 @@ def get_word_count(request):
     Returns:
         A response string that includes the number of words in the provided phrase.
     """
+
+    # Parsing the request
     request_json = request.get_json(silent=True)
 
     # Check if the request provides a 'prompt' key in JSON; otherwise, decode the raw body.
