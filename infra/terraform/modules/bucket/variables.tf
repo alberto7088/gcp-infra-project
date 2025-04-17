@@ -18,3 +18,8 @@ variable "force_destroy" {
   type        = bool
   default     = false
 }
+
+variable "state_sa_email" {
+  description = "Service account email"
+  type        = string
+}
