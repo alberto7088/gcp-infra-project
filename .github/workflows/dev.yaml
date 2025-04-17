@@ -23,7 +23,7 @@ jobs:
   terraform_apply:
     name: Apply (Dev)
     if: github.event_name == 'push'
-    uses: alberto7088/workflows/.github/workflows/terraform-deployment.yaml@main
+    uses: alberto7088/workflows/.github/workflows/terraform-deployments.yaml@main
     with:
       environment:        dev
       terraform-action:   apply
