@@ -10,6 +10,7 @@ def get_word_count(request):
     # Parsing the request
     request_json = request.get_json(silent=True)
 
+
     # Check if the request provides a 'prompt' key in JSON; otherwise, decode the raw body.
     if request_json and 'prompt' in request_json:
         phrase = request_json['prompt']
