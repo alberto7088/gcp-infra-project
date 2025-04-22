@@ -44,12 +44,16 @@ resource "google_cloudfunctions2_function" "this" {
   }
 }
 
+resource "time_sleep" "wait_for_function_iam" {
+  depends_on      = [google_cloudfunctions2_function.this]
+  create_duration = "15s"
+}
+
 resource "google_cloudfunctions2_function_iam_member" "invoker" {
+  depends_on = [time_sleep.wait_for_function_iam]
   project         = var.gcp_project
   location        = var.region
   cloud_function  = google_cloudfunctions2_function.this.name
   role            = "roles/run.invoker"
   member          = var.invoker_member
-
-  depends_on = [google_cloudfunctions2_function.this]
 }
