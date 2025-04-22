@@ -24,6 +24,18 @@ locals {
   code_bucket = module.state_bucket.bucket_name
 }
 
+resource "google_project_service" "run" {
+  project             = var.gcp_project
+  service             = "run.googleapis.com"
+  disable_on_destroy  = false
+}
+
+resource "google_project_service" "cloudfunctions" {
+  project             = var.gcp_project
+  service             = "cloudfunctions.googleapis.com"
+  disable_on_destroy  = false
+}
+
 module "word_counter" {
   source              = "./modules/cloud-function"
   gcp_project         = var.gcp_project
