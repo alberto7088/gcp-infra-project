@@ -68,3 +68,8 @@ variable "max_instances" {
   type        = number
   default     = 100
 }
+
+variable "invoker_member" {
+  description = "Who can invoke the function (e.g. user:alice@… or serviceAccount:… )"
+  type        = string
+}

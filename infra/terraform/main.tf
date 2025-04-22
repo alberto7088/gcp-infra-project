@@ -38,6 +38,7 @@ module "word_counter" {
   source_dir          = "${path.module}/../../services/src/function-word-counter"
   min_instances       = 0
   max_instances       = 10
+  invoker_member      = var.invoker_member
 
   environment_variables = {
     ENVIRONMENT = var.env

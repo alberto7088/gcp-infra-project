@@ -1,7 +1,5 @@
 def get_word_count(request):
     """
-    HTTP Cloud Function.
-
     Args:
         request (flask.Request): The request object.
 
