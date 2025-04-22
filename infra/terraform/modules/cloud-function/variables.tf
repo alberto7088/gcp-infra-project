@@ -73,10 +73,3 @@ variable "invoker_member" {
   description = "Who can invoke the function (e.g. user:alice@… or serviceAccount:… )"
   type        = string
 }
-
-
-variable "depends_on_apis" {
-  description = "Optional API dependencies to ensure they're enabled"
-  type        = list(any)
-  default     = []
-}

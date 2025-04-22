@@ -56,7 +56,7 @@ module "word_counter" {
     ENVIRONMENT = var.env
   }
 
-  depends_on_apis = [
+  depends_on = [
     google_project_service.cloudfunctions,
     google_project_service.run
   ]
