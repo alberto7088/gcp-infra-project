@@ -36,7 +36,7 @@ resource "google_project_service" "cloudfunctions" {
   disable_on_destroy  = false
 }
 
-module "word_counter" {
+module "word-counter" {
   source              = "./modules/cloud-function"
   gcp_project         = var.gcp_project
   region              = var.region
