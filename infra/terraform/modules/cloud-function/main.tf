@@ -50,4 +50,6 @@ resource "google_cloudfunctions2_function_iam_member" "invoker" {
   cloud_function  = google_cloudfunctions2_function.this.name
   role            = "roles/run.invoker"
   member          = var.invoker_member
+
+  depends_on = [google_cloudfunctions2_function.this]
 }
