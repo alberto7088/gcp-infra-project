@@ -41,7 +41,7 @@ module "word-counter" {
   gcp_project         = var.gcp_project
   region              = var.region
   bucket_name         = local.code_bucket
-  function_name       = "word_counter"
+  function_name       = "word-counter"
   runtime             = "python39"
   entry_point         = "get_word_count"
   trigger_http        = true
