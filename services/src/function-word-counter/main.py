@@ -21,10 +21,11 @@ def get_word_count(request):
     words = phrase.strip().split()
     word_count = len(words)
 
-    # Create a response message.
+    # Create a response message..
     response_message = (
         f"Your phrase: '{phrase}'\n"
         f"Word count: {word_count}"
     )
+
 
     return response_message
