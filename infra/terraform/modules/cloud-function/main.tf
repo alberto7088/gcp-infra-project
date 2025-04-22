@@ -18,6 +18,7 @@ resource "google_cloudfunctions2_function" "this" {
   name                = var.function_name
   project             = var.gcp_project
   location            = var.region
+  depends_on          = var.depends_on_apis
 
   build_config{
     runtime             = var.runtime
