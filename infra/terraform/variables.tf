@@ -24,3 +24,8 @@ variable "state_sa_email" {
   description = "Service account email"
   type        = string
 }
+
+variable "invoker_member" {
+  description = "Who can invoke the function (e.g. user:alice@… or serviceAccount:… )"
+  type        = string
+}

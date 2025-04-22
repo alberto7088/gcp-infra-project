@@ -45,9 +45,9 @@ resource "google_cloudfunctions2_function" "this" {
 }
 
 resource "google_cloudfunctions2_function_iam_member" "invoker" {
-  project   = var.gcp_project
-  location  = var.region
+  project         = var.gcp_project
+  location        = var.region
   cloud_function  = google_cloudfunctions2_function.this.name
-  role      = "roles/roles/run.invoker"
-  member    = "allUsers"
+  role            = "roles/run.invoker"
+  member          = var.invoker_member
 }
