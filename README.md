@@ -28,29 +28,32 @@ This project demonstrates how to deploy a **Google Cloud Function (2nd Gen)** us
 ```
 ## ⚙️ Features
 
-Modular Terraform infrastructure for GCP.
+- **Modular Terraform infrastructure** for Google Cloud Platform (GCP).
+- **Cloud Function 2nd Gen** written in **Python 3.11**.
+- **Terraform Plan** automatically triggered on pull requests.
+- **Terraform Apply** automatically triggered on push to the `main` branch.
+- **Secure GitHub Secrets management** for all credentials and sensitive variables.
 
-Cloud Function 2nd Gen written in Python 3.11.
-
-Terraform Plan on PRs.
-
-Terraform Apply on push to main.
-
-Uses GitHub Secrets for secure credential management.
+---
 
 ## 🔐 Secrets Management
-All sensitive variables like GCP credentials, project ID, bucket name, and service account email are securely stored in GitHub Secrets. This ensures:
 
-No hardcoded secrets in code
+All sensitive variables such as GCP credentials, project ID, bucket name, and service account email are securely managed using **GitHub Secrets**.
 
-Encrypted, auditable, and rotatable credentials
+This approach ensures:
+- No hardcoded secrets in the codebase.
+- Encrypted, auditable, and rotatable credentials.
+- Safer collaboration across teams and contributors.
 
-Safer collaboration across teams
+---
 
 ## 🧪 GitHub Actions Workflow
-The repo uses dev.yaml to trigger the shared Terraform workflow:
 
-```
+The repository uses `dev.yaml` to trigger a shared Terraform workflow for automated deployments.
+
+Example configuration:
+
+```yaml
 on:
   pull_request:
     branches: [ main ]
@@ -66,9 +69,8 @@ jobs:
       terraform-directory: infra/terraform
     secrets:
       GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_DEV }}
-      ...
+      # Add any additional required secrets here
 ```
-
 ## ✅ How to Use
 
 1. **Create your project in GCP.**
