@@ -6,6 +6,10 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      terraform_destroy:
+        description: 'Remove terraform infra'
+        default: 'false'
 
 jobs:
   terraform_plan:
@@ -37,3 +41,18 @@ jobs:
       GCP_PROJECT    : ${{ secrets.GCP_PROJECT_DEV }}
       STATE_SA_EMAIL : ${{ secrets.STATE_SA_EMAIL_DEV }}
       INVOKER_MEMBER : ${{ secrets.INVOKER_MEMBER_DEV }}
+
+  terraform_destroy:
+    name: Destroy (Dev)
+    if: github.event_name == 'workflow_dispatch' && inputs.terraform_destroy == 'true'
+    uses: alberto7088/workflows/.github/workflows/terraform-deployment.yaml@main
+    with:
+      environment: dev
+      terraform-action: destroy
+      terraform-directory: infra/terraform
+    secrets:
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_DEV }}
+      TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET_DEV }}
+      GCP_PROJECT: ${{ secrets.GCP_PROJECT_DEV }}
+      STATE_SA_EMAIL: ${{ secrets.STATE_SA_EMAIL_DEV }}
+      INVOKER_MEMBER: ${{ secrets.INVOKER_MEMBER_DEV }}
